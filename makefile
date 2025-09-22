@@ -1,9 +1,14 @@
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c99
+TARGET = string_add
 
-test: add.o sub.o
-	gcc -o test add.o sub.o
+all: $(TARGET)
 
-add.o: add.c test.h
-	gcc -c add.c
+$(TARGET): $(TARGET).c
+	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).c
 
-sub.o: sub.c test.h
-	gcc -c sub.c
+clean:
+	rm -f $(TARGET)
+
+run: $(TARGET)
+	./$(TARGET)
