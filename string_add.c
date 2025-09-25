@@ -1,75 +1,85 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include<stdio.h>
-#include<stdio.h>
-#include<string.h>
+char* addStrings(const char* num1,const char* num2){
+	int len1 = strlen(num1);
+	int len2 = strlen(num2);
 
-char* addStrings(char*num1,char*num2){
-	int len1=strlen(num1);
-	int len2=strlen(num2);
+	int max_len = (len1 > len2)? len1 : len2;
 
-	int max_len=(len1 > len2 ? len1 : len2)+1;
-	char*result=(char*)malloc(max_len + 1);
-	if(result == NULL){
-		printf("内存分配失败\n");
+	int result_len = max_len + 1;
+
+	char* result = (char*)malloc(result_len * sizeof(char));
+	if (result == NULL) {
+		printf("内存分配失败，程序推出\n");
 		exit(1);
 	}
-	result[max_len] = '\0';
 
+	int carry = 0;
 	int i = len1 - 1;
 	int j = len2 - 1;
-	int k = max_len - 1;
-	int carry = 0;
+	int k = result_len - 1;
 
-	while (i >= 0 || j >= 0 || carry > 0){
-		int sum = carry;
+	result[k] = '\0';
+	k--;
 
-		if(i >= 0){
-		sum += num1[i] - '0';
+	while(i >= 0 || j >=0 || carry > 0){
+		int digit1 = (i >= 0) ? (num1[i] - '0') : 0;
+		int digit2 = (j >= 0) ? (num2[j] - '0') : 0;
+
+		int sum = digit1 + digit2 + carry;
+		result[k] = (sum % 10) + '0';
+		carry = sum / 10;
+		
 		i--;
-	}
-
-	if(j >= 0){
-		sum += num2[j] - '0';
 		j--;
-	}
+		k--;
+}
 
-	carry = sum / 10;
-	result[k] = (sum % 10)+ '0';
-	}
-
-	if (k >=0) {
-		memmove(result, result + k + 1,max_len - k);
+	if (k + 1 >0)
+memmove(result, result+k+1,(result_len - (k + 1)) *  sizeof(char));
+char* temp = (char*)realloc(result,(result_len - (k+1)+1)* sizeof\
+(char));
+	if(temp != NULL){
+		result = temp;
+		}
 	}
 
 	return result;
 }
 
 int main(int argc, char* argv[]){
-
 	if(argc != 3){
-		printf("用法：%s <num1> <num2>\n",argv[0]);
-		printf("示例：%s 11 123\n",argv[0]);
+		printf("格式错误\n", argv[0]);
 		return 1;
-	}
+}
 
-	for(int i = 0; argv[1][i] != '\0'; i++{
-	if(argv[1][i] < '0' || argv[1][i] > '9'){
-		printf(“错误：输入必须是有效的非负整数\n");
-		return 1;
-	}
-		}
+	const char* num1 = argv[1];
+	const char* num2 = argv[2];
 
-	for (int i = 0; argv[2][i] != '\0'; i++){
-		if(argv[2][i] < '0' || argv[2][i] > '9'){
-		printf(”错误：输入必须是有效的非负整数\n");
-		return 1;
+	for (int i = 0; num1[i] != '\0'; i++) {
+		if (num1[i] < '0' || num1[i] > '9'){
+			printf("false\n", num1);
+			return 1;
 		}
 	}
 
-	char* sum = addString(argv[1], argv[2]);
-	printf("%s\n", sum);
+	for (int i = 0; num2[i] != '\0'; i++) {
+		if (num2[i] < '0' || num2]i] > '9') {
+		printf("false\n", num2);
+		return 1;
+		}
+	}
 
-	free(sum);
+	char* result = addStrings(num1, num2);
+	if(result != NULL) {
+	printf("计算结果:%s + %s = %s\n", num1,num2,result);
+	free(result);
+}else{
+	printf("X\n");
+	return 1;
+}
 
 	return 0;
 }
