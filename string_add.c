@@ -58,17 +58,13 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    // 修复点6：验证num2是否为合法数字（之前把num2[i]写成num2]i]，括号顺序错误）
     for (int i = 0; num2[i] != '\0'; i++) {
-        // 错误写法：num2]i] → 正确写法：num2[i]（中括号左开右闭）
         if (num2[i] < '0' || num2[i] > '9') {
-            // 修复点7：格式字符串与参数匹配
             printf("错误：%s 不是合法非负整数（包含非法字符）\n", num2);
             return EXIT_FAILURE;
         }
     }
 
-    // 调用相加函数并输出结果
     char* result = addStrings(num1, num2);
     if (result != NULL) {
         printf("计算结果：%s + %s = %s\n", num1, num2, result);
