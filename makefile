@@ -1,7 +1,9 @@
+
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99
+LDFLAGS = -s
 TARGET = string_add
-
+.PHONY: all clean run
 all: $(TARGET)
 
 $(TARGET): $(TARGET).c
