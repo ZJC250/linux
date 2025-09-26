@@ -1,8 +1,8 @@
-
 #include <stdio.h>  
 #include <stdlib.h>
 #include <string.h>
-char* addStrings(const char* num1, const char* num2) {
+
+	char* addStrings(const char* num1, const char* num2) {
     int len1 = strlen(num1);
     int len2 = strlen(num2);
     int max_len = (len1 > len2) ? len1 : len2;
@@ -68,11 +68,11 @@ int main(int argc, char* argv[]) {
     char* result = addStrings(num1, num2);
     if (result != NULL) {
         printf("计算结果：%s + %s = %s\n", num1, num2, result);
-        free(result);  // 释放内存，避免泄漏
+        free(result);
     } else {
         fprintf(stderr, "计算失败！\n");
         return EXIT_FAILURE;
     }
 
-    return EXIT_SUCCESS;  // 程序正常退出
+    return EXIT_SUCCESS;
 }
